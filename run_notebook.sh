@@ -10,7 +10,12 @@ elif [[ -n $(docker ps -aq -f name=${container_name}) ]]; then
     docker restart $container_name
 else
     echo "Create and run new container"
-    docker run -d -p $host_port:8888 --name $container_name -v $(pwd)/notebooks:/notebooks $image_repository
+    docker run -d \
+        -p $host_port:8888 \
+        --name $container_name \
+        -v $(pwd)/notebooks:/notebooks \
+        -v $(pwd)/data:/data \
+        $image_repository
 fi
 
 sleep 1
